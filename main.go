@@ -6,6 +6,7 @@ import (
 	"os"
 	"strings"
 	"test/note"
+	"test/todo"
 )
 
 func main() {
@@ -22,8 +23,20 @@ func main() {
 		fmt.Println(err.Error())
 		return
 	}
-
 	fmt.Println("Saving the note succeeded")
+	newTodo, err := todo.New(getUserInput("Enter todo text: "))
+
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+	newTodo.Display()
+
+	if err = newTodo.Save(); err != nil {
+		fmt.Println(err.Error())
+		return
+	}
+	fmt.Println("Saving the todo succeeded")
 }
 
 func getNoteData() (string, string) {
